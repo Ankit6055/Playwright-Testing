@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 test("Verify Google Title", async ({ page }) => {
-  await page.goto("http://google.com");
+  await page.goto("https://www.google.com");
 
   const url = await page.url();
 
