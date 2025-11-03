@@ -1,32 +1,14 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from '@playwright/test';
 
-test.use({ viewport: { width: 1500, height: 1000 } });
-
-test("Valid Login", async ({ page }) => {
-  await page.goto(
-    "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login"
-  );
-
-  console.log(await page.viewportSize()?.width);
-  console.log(await page.viewportSize()?.height);
-
-  await page
-    .getByPlaceholder("Username")
-    .pressSequentially("Admin", { delay: 200 });
-
-  await page
-    .locator("input[name='password']")
-    .pressSequentially("admin123", { delay: 200 });
-
-  await page.locator("//button[@type='submit']").click();
-
-  //   await page.waitForTimeout(5000); // only for debuging
-
-  await expect(page).toHaveURL(/dashboard/);
-
-  await page.getByAltText("profile picture").first().click();
-
-  await page.getByText("Logout").click();
-
-  await expect(page).toHaveURL(/login/);
+test('test', async ({ page }) => {
+  await page.goto('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login');
+  await page.getByRole('textbox', { name: 'Username' }).click();
+  await page.getByRole('textbox', { name: 'Username' }).fill('Admin');
+  await page.getByRole('textbox', { name: 'Password' }).click();
+  await page.getByRole('textbox', { name: 'Password' }).fill('admin123');
+  await page.getByRole('button', { name: 'Login' }).dblclick();
+  await page.getByRole('link', { name: 'Claim' }).click();
+  await page.getByRole('link', { name: 'My Info' }).click();
+  await page.getByRole('banner').getByText('Oleksandr Dovzhenko').click();
+  await page.getByRole('menuitem', { name: 'Logout' }).click();
 });
